@@ -6,7 +6,7 @@ object CombinationSum {
 
   def combinationSum(candidates: Array[Int], target: Int): List[List[Int]] =
     if (target == 0) List(List.empty)
-    else if (target < 0 || candidates.isEmpty) List.empty
+    else if (target < 0) List.empty
     else {
       candidates.headOption.toList.flatMap { value =>
         List

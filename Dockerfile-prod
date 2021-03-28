@@ -1,0 +1,7 @@
+FROM openjdk:11-jre-slim
+
+WORKDIR /opt/leetcode-problems
+
+ADD target/universal/leetcode-problems-*.tgz .
+
+CMD [ "/opt/leetcode-problems/bin/leetcode-problems" ]

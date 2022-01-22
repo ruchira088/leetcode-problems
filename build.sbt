@@ -14,14 +14,13 @@ lazy val root =
       buildInfoPackage := "com.eed3si9n.ruchij",
       topLevelDirectory := None,
       scalacOptions ++= Seq("-Xlint", "-feature"),
-      addCompilerPlugin(kindProjector),
-      addCompilerPlugin(scalaTypedHoles)
+      addCompilerPlugin(kindProjector)
     )
 
 lazy val rootDependencies =
   Seq()
 
 lazy val rootTestDependencies =
-  Seq(scalaTest, pegdown)
+  Seq(scalaTest, pegdown, junitJupiterApi)
 
 addCommandAlias("testWithCoverage", "; coverage; test; coverageReport")

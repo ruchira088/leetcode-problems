@@ -1,36 +1,23 @@
 package com.ruchij;
 
 public class ValidateBinarySearchTree {
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
+    record TreeNode(int val, TreeNode left, TreeNode right) {}
 
 //    public boolean isValidBST(TreeNode root) {
 //        return isValidBST(root, null, null);
 //    }
 //
-//    private boolean isValidBST(TreeNode treeNode, Integer min, Integer max) {
-//        if (treeNode == null) {
+//    private boolean isValidBST(TreeNode root, Integer min, Integer max) {
+//        if (root == null) {
 //            return true;
-//        } else if ((min == null || min < treeNode.val) && (max == null || max > treeNode.val)) {
-//            return isValidBST(treeNode.left, min, treeNode.val) && isValidBST(treeNode.right, treeNode.val, max);
 //        } else {
-//            return false;
+//            int value = root.val;
+//
+//            if ((min == null || min < value) && (max == null || max > value)) {
+//                return isValidBST(root.left, min, value) && isValidBST(root.right, value, max);
+//            } else {
+//                return false;
+//            }
 //        }
 //    }
 
@@ -41,8 +28,11 @@ public class ValidateBinarySearchTree {
             return true;
         } else {
             if (isValidBST(root.left)) {
-                if (previous == null || previous < root.val) {
-                    previous = root.val;
+                int value = root.val;
+
+                if (previous == null || previous < value) {
+                    previous = value;
+
                     return isValidBST(root.right);
                 }
             }
@@ -50,4 +40,6 @@ public class ValidateBinarySearchTree {
             return false;
         }
     }
+
+
 }

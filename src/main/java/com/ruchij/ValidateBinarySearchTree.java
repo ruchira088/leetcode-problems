@@ -2,42 +2,39 @@ package com.ruchij;
 
 public class ValidateBinarySearchTree {
     record TreeNode(int val, TreeNode left, TreeNode right) {}
+    record Result(boolean isValid, Integer previous) { }
 
 //    public boolean isValidBST(TreeNode root) {
-//        return isValidBST(root, null, null);
+//        return isValid(root, null).isValid;
 //    }
 //
-//    private boolean isValidBST(TreeNode root, Integer min, Integer max) {
+//    public Result isValid(TreeNode root, Integer previous) {
 //        if (root == null) {
-//            return true;
+//            return new Result(true, previous);
 //        } else {
-//            int value = root.val;
+//            Result leftResult = isValid(root.left, previous);
 //
-//            if ((min == null || min < value) && (max == null || max > value)) {
-//                return isValidBST(root.left, min, value) && isValidBST(root.right, value, max);
+//            if (leftResult.isValid && (leftResult.previous == null || leftResult.previous < root.val)) {
+//                return isValid(root.right, root.val);
 //            } else {
-//                return false;
+//                return new Result(false, previous);
 //            }
 //        }
 //    }
 
-    private Integer previous;
-
     public boolean isValidBST(TreeNode root) {
-        if (root == null) {
+        return isValidBST(root, null, null);
+    }
+
+    private boolean isValidBST(TreeNode treeNode, Integer min, Integer max) {
+        if (treeNode == null) {
             return true;
         } else {
-            if (isValidBST(root.left)) {
-                int value = root.val;
-
-                if (previous == null || previous < value) {
-                    previous = value;
-
-                    return isValidBST(root.right);
-                }
+            if ((min == null || min < treeNode.val) && (max == null || max > treeNode.val)) {
+                return isValidBST(treeNode.left, min, treeNode.val) && isValidBST(treeNode.right, treeNode.val, max);
+            } else {
+                return false;
             }
-
-            return false;
         }
     }
 

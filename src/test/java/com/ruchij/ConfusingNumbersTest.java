@@ -11,11 +11,7 @@ class ConfusingNumbersTest {
         Assertions.assertEquals(6, confusingNumbers.confusingNumberII(20));
         Assertions.assertEquals(19, confusingNumbers.confusingNumberII(100));
 
-        int[] numbers = {1};
-
-        for (int i = 0; i < numbers.length; i++) {
-            System.out.println(numbers[i]);
-        }
+        System.out.println(confusingNumbers.confusingNumberII(100_000_000));
     }
 
 }

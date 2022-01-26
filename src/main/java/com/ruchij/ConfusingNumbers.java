@@ -13,8 +13,6 @@ public class ConfusingNumbers {
                     "9", 6
             );
 
-    private static final Set<String> INTEGER_SET = Set.of("2", "3", "4", "5", "7");
-
     public int confusingNumberII(int n) {
         int count = 0;
         int index = 0;
@@ -49,7 +47,7 @@ public class ConfusingNumbers {
     }
 
     private String rotate(String numberString) {
-        for (String non : INTEGER_SET) {
+        for (String non : Set.of("2", "3", "4", "5", "7")) {
             if (numberString.contains(non)) {
                 return null;
             }

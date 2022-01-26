@@ -1,26 +1,36 @@
 package com.ruchij;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class ArraySwap {
     static final class State {
-        private final List<Integer> swaps;
-        private final int swapCount;
+        private final int previousOne;
+        private final int previousTwo;
+        private final int swaps;
+        private final int index;
 
-        State(List<Integer> swaps, int swapCount) {
+        State(int previousOne, int previousTwo, int swaps, int index) {
+            this.previousOne = previousOne;
+            this.previousTwo = previousTwo;
             this.swaps = swaps;
-            this.swapCount = swapCount;
+            this.index = index;
         }
 
-        public List<Integer> swaps() {
+        public int previousOne() {
+            return previousOne;
+        }
+
+        public int previousTwo() {
+            return previousTwo;
+        }
+
+        public int swaps() {
             return swaps;
         }
 
-        public int swapCount() {
-            return swapCount;
+        public int index() {
+            return index;
         }
 
         @Override
@@ -28,73 +38,55 @@ public class ArraySwap {
             if (obj == this) return true;
             if (obj == null || obj.getClass() != this.getClass()) return false;
             var that = (State) obj;
-            return Objects.equals(this.swaps, that.swaps) &&
-                    this.swapCount == that.swapCount;
+            return this.previousOne == that.previousOne &&
+                    this.previousTwo == that.previousTwo &&
+                    this.swaps == that.swaps &&
+                    this.index == that.index;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(swaps, swapCount);
+            return Objects.hash(previousOne, previousTwo, swaps, index);
         }
 
         @Override
         public String toString() {
             return "State[" +
+                    "previousOne=" + previousOne + ", " +
+                    "previousTwo=" + previousTwo + ", " +
                     "swaps=" + swaps + ", " +
-                    "swapCount=" + swapCount + ']';
+                    "index=" + index + ']';
         }
     }
 
     public int minSwap(int[] nums1, int[] nums2) {
         ArrayDeque<State> queue = new ArrayDeque<>();
-        queue.add(new State(List.of(), 0));
-        int size = nums1.length;
+        int min = -1;
+        queue.add(new State(nums1[0], nums2[0], 0, 1));
 
         while (!queue.isEmpty()) {
             State state = queue.pop();
 
-            int[] arrayOne = new int[size];
-            System.arraycopy(nums1, 0, arrayOne, 0, size);
+            if (state.index == nums1.length) {
+                if (min == -1 || min > state.swaps) {
+                    min = state.swaps;
+                }
+            } else {
+                int currentOne = nums1[state.index];
+                int currentTwo = nums2[state.index];
 
-            int[] arrayTwo = new int[size];
-            System.arraycopy(nums2, 0, arrayTwo, 0, size);
+                if (state.previousOne >= currentOne || state.previousTwo >= currentTwo) {
+                    queue.add(new State(currentTwo, currentOne, state.swaps + 1, state.index + 1));
+                }
 
-            for (Integer swap: state.swaps) {
-                int value = arrayOne[swap];
-                arrayOne[swap] = arrayTwo[swap];
-                arrayTwo[swap] = value;
-            }
+                if (state.previousOne <= currentOne && state.previousTwo <= currentTwo) {
+                    boolean isEqual = state.previousOne == currentOne || state.previousTwo == currentTwo;
 
-            if (isSorted(arrayOne) && isSorted(arrayTwo)) {
-                return state.swapCount;
-            }
-
-            for (int i = 0; i < size; i++) {
-                List<Integer> swaps = new ArrayList<>(state.swaps);
-                swaps.add(i);
-
-                queue.add(new State(swaps, state.swapCount + 1));
-            }
-        }
-
-        return -1;
-    }
-
-    private boolean isSorted(int[] array) {
-        if (array.length != 0) {
-            int previous = array[0];
-
-            for (int i = 1; i < array.length; i++) {
-                int current = array[i];
-
-               if (current <= previous) {
-                    return false;
-                } else {
-                    previous = current;
+                    queue.add(new State(currentOne, currentTwo, state.swaps + (isEqual ? 1 : 0), state.index + 1));
                 }
             }
-
         }
-        return true;
+
+        return min;
     }
 }

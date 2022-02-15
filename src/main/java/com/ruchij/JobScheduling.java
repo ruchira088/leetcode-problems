@@ -45,7 +45,7 @@ public class JobScheduling {
         @Override
         public String toString() {
             return "Job[" +
-                    "start=" + start + ", " +
+                    "startIndex=" + start + ", " +
                     "end=" + end + ", " +
                     "profit=" + profit + ']';
         }

@@ -62,14 +62,14 @@ public class TrappingRainWater {
 //        return -1;
 //    }
 //
-//    private int trap(int[] heights, int start, int end) {
-//        if (start == end) {
+//    private int trap(int[] heights, int startIndex, int end) {
+//        if (startIndex == end) {
 //            return 0;
 //        } else {
-//            int highest = heights[start];
+//            int highest = heights[startIndex];
 //            int water = 0;
 //
-//            for (int i = start; i < end; i++) {
+//            for (int i = startIndex; i < end; i++) {
 //                water += (highest - heights[i]);
 //            }
 //

@@ -40,7 +40,7 @@ public class MergeIntervals {
         @Override
         public String toString() {
             return "Interval[" +
-                    "start=" + start + ", " +
+                    "startIndex=" + start + ", " +
                     "end=" + end + ']';
         }
     }

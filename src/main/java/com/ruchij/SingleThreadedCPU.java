@@ -51,7 +51,7 @@ public class SingleThreadedCPU {
         @Override
         public String toString() {
             return "Task[" +
-                    "start=" + start + ", " +
+                    "startIndex=" + start + ", " +
                     "duration=" + duration + ", " +
                     "scheduled=" + scheduled + ", " +
                     "index=" + index + ']';

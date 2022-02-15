@@ -42,11 +42,11 @@ public class MinimumPathSum {
 //        ArrayDeque<State> queue = new ArrayDeque<>();
 //        Integer[][] shortestPaths = new Integer[grid.length][grid[0].length];
 //
-//        Coordinate start = new Coordinate(0, 0);
+//        Coordinate startIndex = new Coordinate(0, 0);
 //        Coordinate destination = new Coordinate(grid[0].length - 1, grid.length - 1);
 //
-//        shortestPaths[0][0] = grid[start.y][start.x];
-//        queue.add(new State(start, grid[start.y][start.x]));
+//        shortestPaths[0][0] = grid[startIndex.y][startIndex.x];
+//        queue.add(new State(startIndex, grid[startIndex.y][startIndex.x]));
 //
 //        while (!queue.isEmpty()) {
 //            State state = queue.poll();

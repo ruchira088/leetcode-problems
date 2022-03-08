@@ -28,8 +28,14 @@ class SubstringConcatenationAllWordsTest {
 
     @Test
     void testFour() {
-        String[] words = {"fooo","barr","wing","ding","wing"};
+        String[] words = {"fooo", "barr", "wing", "ding", "wing"};
         Assertions.assertEquals(List.of(13), substringConcatenationAllWords.findSubstring("lingmindraboofooowingdingbarrwingmonkeypoundcake", words));
+    }
+
+    @Test
+    void testFive() {
+        String[] words = {"aa", "aa"};
+        Assertions.assertEquals(List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), substringConcatenationAllWords.findSubstring("aaaaaaaaaaaaaa", words));
     }
 
 }

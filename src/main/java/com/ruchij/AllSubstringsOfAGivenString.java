@@ -1,38 +1,52 @@
 package com.ruchij;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class AllSubstringsOfAGivenString {
 
     public int uniqueLetterString(String s) {
+        List<Integer>[] charIndexes = group(s);
         int count = 0;
-        Map<String, Integer> cache = new HashMap<>();
 
         for (int i = 0; i < s.length(); i++) {
-            for (int j = i + 1; j <= s.length(); j++) {
-                String input = s.substring(i, j);
-                Integer result = cache.get(input);
+            int character = s.charAt(i) - 'A';
+            List<Integer> integers = charIndexes[character];
 
-                if (result == null) {
-                    result = countUniqueChars(input);
-                    cache.put(input, result);
-                }
+            int currentIndexPosition = Collections.binarySearch(integers, i);
+            int startIndex = 0;
+            int endIndex = s.length();
 
-                count += result;
+            if (currentIndexPosition != 0) {
+                startIndex = integers.get(currentIndexPosition - 1) + 1;
             }
+
+            if (currentIndexPosition < integers.size() - 1) {
+                endIndex = integers.get(currentIndexPosition + 1);
+            }
+
+            int value = (endIndex - i) * (i - startIndex + 1);
+
+            count += value;
         }
 
         return count;
     }
 
-    private int countUniqueChars(String input) {
-        HashMap<Character, Integer> map = new HashMap<>();
+    private List<Integer>[] group(String input) {
+        List<Integer>[] indexed = new List[26];
 
-        for (char character : input.toCharArray()) {
-            map.put(character, map.getOrDefault(character, 0) + 1);
+        for (int i = 0; i < input.length(); i++) {
+            int character = input.charAt(i) - 'A';
+            List<Integer> indexes = indexed[character];
+
+            if (indexes == null) {
+                indexes = new ArrayList<>();
+            }
+
+            indexes.add(i);
+            indexed[character] = indexes;
         }
 
-        return map.values().stream().filter(count -> count == 1).mapToInt(value -> value).sum();
+        return indexed;
     }
 }

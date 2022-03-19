@@ -5,11 +5,13 @@ import java.util.*;
 public class MaximumFrequencyStack {
 
     static class FreqStack {
-        record Tuple(int value, int count){}
+        record Tuple(int value, int count, int index){}
 
-        private final Stack<Tuple> stack = new Stack<>();
+        int index = 0;
+
         private final Map<Integer, Integer> count = new HashMap<>();
-        private final PriorityQueue<Integer> maximum = new PriorityQueue<>(Comparator.reverseOrder());
+        private final PriorityQueue<Tuple> maximum =
+                new PriorityQueue<>(Comparator.comparingInt(Tuple::count).thenComparingInt(Tuple::index).reversed());
 
         public FreqStack() {
 
@@ -17,32 +19,19 @@ public class MaximumFrequencyStack {
 
         public void push(int val) {
             int updatedCount = count.getOrDefault(val, 0) + 1;
-
             count.put(val, updatedCount);
-            maximum.add(updatedCount);
 
-            Tuple tuple = new Tuple(val, updatedCount);
-            stack.push(tuple);
+            Tuple tuple = new Tuple(val, updatedCount, index);
+            maximum.add(tuple);
+
+            index++;
         }
 
         public int pop() {
-            Integer max = maximum.poll();
-            Stack<Tuple> popped = new Stack<>();
+            Tuple max = maximum.poll();
+            count.put(max.value, count.get(max.value) - 1);
 
-            Tuple pop = stack.pop();
-
-            while (pop.count != max) {
-                popped.push(pop);
-                pop = stack.pop();
-            }
-
-            while (!popped.isEmpty()) {
-                stack.push(popped.pop());
-            }
-
-            count.put(pop.value, count.get(pop.value) - 1);
-
-            return pop.value;
+            return max.value;
         }
     }
 }

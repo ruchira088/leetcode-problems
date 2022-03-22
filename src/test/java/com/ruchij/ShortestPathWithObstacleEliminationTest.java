@@ -1,5 +1,7 @@
 package com.ruchij;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -8,7 +10,7 @@ public class ShortestPathWithObstacleEliminationTest {
     private final ShortestPathWithObstacleElimination shortestPathWithObstacleElimination = new ShortestPathWithObstacleElimination();
 
     @Test
-    void solve() {
+    void testOne() {
         List<List<Integer>> list =
                 List.of(
                         List.of(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
@@ -54,5 +56,22 @@ public class ShortestPathWithObstacleEliminationTest {
                 list.stream().map(y -> y.stream().mapToInt(x -> x).toArray()).toArray(int[][]::new);
 
         System.out.println(shortestPathWithObstacleElimination.shortestPath(input, 6));
+    }
+
+
+    @Test
+    void testTwo() {
+        int[][] grid = {{0, 0, 0}, {1, 1, 0}, {0, 0, 0}, {0, 1, 1}, {0, 0, 0}};
+        int shortestPath = shortestPathWithObstacleElimination.shortestPath(grid, 1);
+
+        Assertions.assertEquals(6, shortestPath);
+    }
+
+    @Test
+    void testThree() {
+        int[][] grid = {{0, 1, 1}, {1, 1, 1}, {1, 0, 0}};
+        int shortestPath = shortestPathWithObstacleElimination.shortestPath(grid, 1);
+
+        Assertions.assertEquals(-1, shortestPath);
     }
 }

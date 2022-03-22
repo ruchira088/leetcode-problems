@@ -50,12 +50,12 @@ public class MinimumPathSum {
 //
 //        while (!queue.isEmpty()) {
 //            State state = queue.poll();
-//            Coordinate position = state.position;
+//            Coordinate coordinate = state.coordinate;
 //
-//            if (shortestPaths[position.y][position.x] == null || shortestPaths[position.y][position.x] == state.sum) {
+//            if (shortestPaths[coordinate.y][coordinate.x] == null || shortestPaths[coordinate.y][coordinate.x] == state.sum) {
 //                Stream.of(
-//                        new Coordinate(position.x, position.y + 1),
-//                        new Coordinate(position.x + 1, position.y)
+//                        new Coordinate(coordinate.x, coordinate.y + 1),
+//                        new Coordinate(coordinate.x + 1, coordinate.y)
 //                ).filter(coordinate ->
 //                        coordinate.x >= 0 && coordinate.x < grid[0].length &&
 //                                coordinate.y >= 0 && coordinate.y < grid.length

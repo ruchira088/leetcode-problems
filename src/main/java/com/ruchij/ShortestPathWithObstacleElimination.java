@@ -1,79 +1,65 @@
 package com.ruchij;
 
-import java.util.ArrayDeque;
+import java.util.*;
 
 public class ShortestPathWithObstacleElimination {
-    record Coordinate(int x, int y) { }
+    record Coordinate(int x, int y) {}
+    record State(Coordinate coordinate, int obstaclesRemoved, int moves) {}
 
-    record Node(Coordinate position, int distance, int eliminatedObstacles) {}
-
-    public int shortestPath(int[][] grid, int obstaclesElimination) {
-        int height = grid.length;
-        int width = grid[0].length;
-
-        Coordinate origin = new Coordinate(0, 0);
-        Coordinate destination = new Coordinate(width - 1, height - 1);
-        ArrayDeque<Node> queue = new ArrayDeque<>();
-        queue.add(new Node(origin, 0, 0));
-        int[][][] shortestDistance = new int[height][width][obstaclesElimination + 1];
-
+    public int shortestPath(int[][] grid, int k) {
+        Coordinate target = new Coordinate(grid[grid.length - 1].length - 1, grid.length - 1);
+        ArrayDeque<State> queue = new ArrayDeque<>();
+        queue.add(new State(new Coordinate(0, 0), 0, 0));
+        Map<Coordinate, Integer[]> minMoves = new HashMap<>();
 
         while (!queue.isEmpty()) {
-            Node node = queue.pop();
+            State state = queue.pop();
 
-            if (node.position.equals(destination)) {
-                return node.distance;
-            }
+            if (state.coordinate.equals(target)) {
+                return state.moves;
+            } else if (isApplicable(state, minMoves, k)) {
+                int[][] diffs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
-            Integer shortest = getShortest(shortestDistance, node.position, node.eliminatedObstacles);
+                for (int[] diff : diffs) {
+                    Coordinate coordinate = new Coordinate(state.coordinate.x + diff[0], state.coordinate.y + diff[1]);
 
-            if (shortest == null || shortest >= node.distance) {
-                shortestDistance[node.position.y][node.position.x][node.eliminatedObstacles] = node.distance;
-
-                Coordinate[] coordinates =
-                        {
-                                new Coordinate(node.position.x, node.position.y + 1),
-                                new Coordinate(node.position.x, node.position.y - 1),
-                                new Coordinate(node.position.x + 1, node.position.y),
-                                new Coordinate(node.position.x - 1, node.position.y)
-                        };
-
-                for (Coordinate coordinate: coordinates) {
-                    if (coordinate.x >= 0 && coordinate.y >= 0 && coordinate.x < width && coordinate.y < height) {
+                    if (coordinate.y >= 0 && coordinate.y < grid.length && coordinate.x >= 0 && coordinate.x < grid[coordinate.y].length) {
                         int cell = grid[coordinate.y][coordinate.x];
 
-                        if (cell == 1 && node.eliminatedObstacles < obstaclesElimination) {
-                            Integer distance = getShortest(shortestDistance, coordinate, node.eliminatedObstacles + 1);
-
-                            if (distance == null || distance > node.distance + 1) {
-                                queue.add(new Node(coordinate, node.distance + 1, node.eliminatedObstacles + 1));
-                            }
-                        } else if (cell == 0) {
-                            Integer distance = getShortest(shortestDistance, coordinate, node.eliminatedObstacles);
-
-                            if (distance == null || distance > node.distance + 1) {
-                                queue.add(new Node(coordinate, node.distance + 1, node.eliminatedObstacles));
-                            }
+                        if (cell == 0) {
+                            queue.add(new State(coordinate, state.obstaclesRemoved, state.moves + 1));
+                        } else if (state.obstaclesRemoved < k) {
+                            queue.add(new State(coordinate, state.obstaclesRemoved + 1, state.moves + 1));
                         }
                     }
-
                 }
             }
-
         }
 
         return -1;
     }
 
-    private Integer getShortest(int[][][] map, Coordinate position, int eliminated) {
-        for (int i = eliminated; i >= 0; i--) {
-            int distance = map[position.y][position.x][i];
+    private boolean isApplicable(State state, Map<Coordinate, Integer[]> minMoves, int max) {
+        Integer[] minDistances = minMoves.computeIfAbsent(state.coordinate, x -> new Integer[max + 1]);
+        int current = state.obstaclesRemoved;
 
-            if (distance != 0) {
-                return distance;
+        while (current >= 0) {
+            Integer minDistance = minDistances[current];
+
+            if (minDistance != null) {
+                if (minDistance < state.moves || current < state.moves && minDistance == state.moves) {
+                    return false;
+                } else {
+                    minDistances[state.obstaclesRemoved] = state.moves;
+                    return true;
+                }
+            } else {
+                current--;
             }
         }
 
-        return null;
+        minDistances[state.obstaclesRemoved] = state.moves;
+
+        return true;
     }
 }

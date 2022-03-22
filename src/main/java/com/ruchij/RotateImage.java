@@ -1,36 +1,20 @@
 package com.ruchij;
 
 public class RotateImage {
-//    public void rotate(int[][] matrix) {
-//        int n = matrix.length;
-//
-//        for (int i = 0; i < (n + 1) / 2; i++) {
-//            for (int j = 0; j < n / 2; j++) {
-//                int temp = matrix[j][n - 1 - i];
-//                matrix[j][n - 1 - i] = matrix[i][j];
-//                matrix[i][j] = matrix[n - j - 1][i];
-//                matrix[n - j - 1][i] = matrix[n - i - 1][n - j - 1];
-//                matrix[n - i - 1][n - j - 1] = temp;
-//            }
-//        }
-//    }
-
     public void rotate(int[][] matrix) {
-        int n = matrix.length;
-
-        for (int i = 0; i < n; i++) {
-            for (int j = i; j < n; j++) {
-                int temp = matrix[j][i];
-                matrix[j][i] = matrix[i][j];
-                matrix[i][j] = temp;
+        for (int y = 0; y < matrix.length; y++) {
+            for (int x = y + 1; x < matrix[y].length; x++) {
+                int temp = matrix[y][x];
+                matrix[y][x] = matrix[x][y];
+                matrix[x][y] = temp;
             }
         }
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n / 2; j++) {
-                int temp = matrix[i][j];
-                matrix[i][j] = matrix[i][n - j - 1];
-                matrix[i][n - j - 1] = temp;
+        for (int y = 0; y < matrix.length; y++) {
+            for (int x = 0; x < matrix[y].length / 2; x++) {
+                int temp = matrix[y][x];
+                matrix[y][x] = matrix[y][matrix[y].length - 1 - x];
+                matrix[y][matrix[y].length - 1 - x] = temp;
             }
         }
 

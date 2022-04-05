@@ -6,15 +6,11 @@ public class MinimumSwapsGroupOne {
         int max = 0;
 
         for (int datum : data) {
-            if (datum == 1) {
-                onesCount++;
-            }
+            onesCount += datum;
         }
 
         for (int i = 0; i < onesCount; i++) {
-            if (data[i] == 1) {
-                max++;
-            }
+            max += data[i];
         }
 
         int current = max;

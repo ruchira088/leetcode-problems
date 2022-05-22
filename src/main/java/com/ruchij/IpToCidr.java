@@ -11,9 +11,11 @@ public class IpToCidr {
     public List<String> ipToCIDR(String ip, int n) {
         List<Integer> integers = parse(ip);
         List<String> cidrs = new ArrayList<>();
+        List<Integer> current = integers;
 
         for (int i = 0; i < n; i++) {
-            cidrs.add(toBinary(add(integers, i, 256)));
+            cidrs.add(toBinary(current));
+            current = add(current, 1, 256);
         }
 
         return summarize(cidrs, cidrs.size(), 0, 32);

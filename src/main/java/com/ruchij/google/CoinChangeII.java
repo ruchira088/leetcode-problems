@@ -8,7 +8,20 @@ public class CoinChangeII {
     record Entry(int amount, int index) {}
 
     public int change(int amount, int[] coins) {
-        return change(amount, coins, 0, new HashMap<>());
+        return changeOne(amount, coins);
+    }
+
+    public int changeOne(int amount, int[] coins) {
+        int[] count = new int[amount + 1];
+        count[0] = 1;
+
+        for (int coin : coins) {
+            for (int i = coin; i <= amount; i++) {
+                count[i] += count[i - coin];
+            }
+        }
+
+        return count[amount];
     }
 
     private int change(int amount, int[] coins, int index, Map<Entry, Integer> cache) {

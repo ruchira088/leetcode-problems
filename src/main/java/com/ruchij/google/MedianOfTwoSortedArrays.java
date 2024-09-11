@@ -2,42 +2,31 @@ package com.ruchij.google;
 
 public class MedianOfTwoSortedArrays {
     public double findMedianSortedArrays(int[] xs, int[] ys) {
-        if (ys.length < xs.length) {
-            return findMedianSortedArrays(ys, xs);
-        }
+        int totalLength = xs.length + ys.length;
+        int midPoint = totalLength / 2;
 
-        int x = xs.length;
-        int y = ys.length;
+        int indexY = ys.length / 2;
 
-        int low = 0;
-        int high = x;
+        while (true) {
+            int indexX = midPoint - indexY;
 
-        while (low <= high) {
-            int partitionX = (low + high) / 2;
-            int partitionY = (x + y + 1) / 2 - partitionX;
+            int leftY = indexY == 0 ? Integer.MIN_VALUE : ys[indexY - 1];
+            int rightY = indexY == ys.length ? Integer.MAX_VALUE : ys[indexY];
 
-            int leftX = partitionX == 0 ? Integer.MIN_VALUE : xs[partitionX - 1];
-            int rightX = partitionX == x ? Integer.MAX_VALUE : xs[partitionX];
+            int leftX = indexX == 0 ? Integer.MIN_VALUE : xs[indexX - 1];
+            int rightX = indexX == xs.length ? Integer.MAX_VALUE : xs[indexX];
 
-            int leftY = partitionY == 0 ? Integer.MIN_VALUE : ys[partitionY - 1];
-            int rightY = partitionY == y ? Integer.MAX_VALUE : ys[partitionY];
-
-            if (leftX <= rightY && leftY <= rightX) {
-                int leftMax = Math.max(leftY, leftX);
-
-                if ((x + y) % 2 == 1) {
-                    return leftMax;
+            if (leftY <= rightX && leftX <= rightY) {
+                if (totalLength % 2 == 1) {
+                    return Math.min(rightY, rightX);
                 } else {
-                    return ((double) (leftMax + Math.min(rightX, rightY))) / 2;
+                    return  ((double) (Math.max(leftY, leftX) + Math.min(rightY, rightX))) / 2;
                 }
-            } else if (leftX > rightY) {
-                high = partitionX - 1;
+            } else if (leftY > rightX) {
+                indexY--;
             } else {
-                low = partitionX + 1;
+                indexY++;
             }
         }
-
-
-        throw new IllegalArgumentException("Input arrays are not sorted");
     }
 }

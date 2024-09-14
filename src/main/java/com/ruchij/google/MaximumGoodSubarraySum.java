@@ -7,6 +7,27 @@ import java.util.Map;
 
 public class MaximumGoodSubarraySum {
     public long maximumSubarraySum(int[] nums, int k) {
+        Map<Integer, Long> cumulativeSums = new HashMap<>();
+        long currentSum = 0;
+        long maxSum = Long.MIN_VALUE;
+
+        for (int value : nums) {
+            for (int offset : new int[]{-k, k}) {
+                if (cumulativeSums.containsKey(value + offset)) {
+                    long minValue = cumulativeSums.get(value + offset);
+                    maxSum = Math.max(maxSum, currentSum + value - minValue);
+                }
+            }
+
+            cumulativeSums.put(value, Math.min(cumulativeSums.getOrDefault(value, Long.MAX_VALUE), currentSum));
+            currentSum += value;
+            System.out.println(currentSum);
+        }
+
+        return  maxSum == Long.MIN_VALUE ? 0 : maxSum;
+    }
+
+    public long maximumSubarraySumOne(int[] nums, int k) {
         Map<Integer, List<Integer>> summary = summarise(nums);
         long[] sums = sums(nums);
 

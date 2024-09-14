@@ -1,5 +1,7 @@
 package com.ruchij.google;
 
+import java.util.function.Function;
+
 public class MedianOfTwoSortedArrays {
     public double myFindMedianSortedArrays(int[] xs, int[] ys) {
         int totalLength = xs.length + ys.length;
@@ -44,6 +46,7 @@ public class MedianOfTwoSortedArrays {
         System.out.println("x + y + 1 = " + (x + y + 1));
 
         while (low <= high) {
+            System.out.println("----------");
             int partitionX = (low + high) / 2;
             int partitionY = (x + y + 1) / 2 - partitionX;
 
@@ -54,6 +57,12 @@ public class MedianOfTwoSortedArrays {
 
             int leftY = partitionY == 0 ? Integer.MIN_VALUE : ys[partitionY - 1];
             int rightY = partitionY == y ? Integer.MAX_VALUE : ys[partitionY];
+
+            Function<Integer, String> format =
+                    integer -> integer == Integer.MAX_VALUE ? "+Inf" : (integer == Integer.MIN_VALUE ? "-Inf" : String.valueOf(integer));
+
+            System.out.println("leftX=%s, rightX=%s".formatted(format.apply(leftX), format.apply(rightX)));
+            System.out.println("leftY=%s, rightY=%s".formatted(format.apply(leftY), format.apply(rightY)));
 
             if (leftX <= rightY && leftY <= rightX) {
                 int leftMax = Math.max(leftY, leftX);

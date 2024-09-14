@@ -15,7 +15,8 @@ class MedianOfTwoSortedArraysTest {
 //        assertEquals(-1, medianOfTwoSortedArrays.findMedianSortedArrays(new int[]{3}, new int[]{-2, -1}));
 //        assertEquals(8, medianOfTwoSortedArrays.findMedianSortedArrays(new int[]{1, 3, 4, 8, 8, 10}, new int[]{2, 5, 7, 8, 9, 9, 9}));
 //        assertEquals(2.5, medianOfTwoSortedArrays.findMedianSortedArrays(new int[]{2, 3, 4}, new int[]{1}));
-        System.out.println(medianOfTwoSortedArrays.findMedianSortedArrays(new int[]{1, 1, 1, 1, 8, 10}, new int[]{2, 5, 7, 8, 9, 9, 9}));
+//        System.out.println(medianOfTwoSortedArrays.findMedianSortedArrays(new int[]{1, 1, 1, 1, 8, 10}, new int[]{2, 5, 7, 8, 9, 9, 9}));
+        assertEquals(3.5, medianOfTwoSortedArrays.findMedianSortedArrays(new int[]{1, 2, 3}, new int[]{2, 3, 4, 5, 6, 7, 8}));
 
     }
 

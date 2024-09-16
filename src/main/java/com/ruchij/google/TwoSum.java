@@ -2,11 +2,32 @@ package com.ruchij.google;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 
 public class TwoSum {
     record Entry(int index, int value) {}
 
     public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            hashMap.put(nums[i], i);
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            int other = target - num;
+            Integer otherIndex = hashMap.get(other);
+
+            if (otherIndex != null && otherIndex != i) {
+                return new int[] { otherIndex, i };
+            }
+        }
+
+        return new int[] {};
+    }
+
+    public int[] twoSum2(int[] nums, int target) {
         Entry[] entries = new Entry[nums.length];
 
         for (int i = 0; i < nums.length; i++) {

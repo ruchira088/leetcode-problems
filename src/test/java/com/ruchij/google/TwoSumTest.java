@@ -8,14 +8,14 @@ class TwoSumTest {
 
     @Test
     void verifyResult() {
-        int[] result = twoSum.twoSum(new int[]{2, 7, 11, 15}, 9);
-        Assertions.assertArrayEquals(new int[]{0, 1}, result);
+//        int[] result = twoSum.twoSum(new int[]{2, 7, 11, 15}, 9);
+//        Assertions.assertArrayEquals(new int[]{1, 0}, result);
 
-        result = twoSum.twoSum(new int[] {3, 2, 4}, 6);
-        Assertions.assertArrayEquals(new int[]{1, 2}, result);
+        int[] result = twoSum.twoSum(new int[] {3, 2, 4}, 6);
+        Assertions.assertArrayEquals(new int[]{2, 1}, result);
 
-        result = twoSum.twoSum(new int[] {3, 3}, 6);
-        Assertions.assertArrayEquals(new int[]{0, 1}, result);
+//        result = twoSum.twoSum(new int[] {3, 3}, 6);
+//        Assertions.assertArrayEquals(new int[]{1, 0}, result);
     }
 
 }

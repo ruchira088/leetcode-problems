@@ -5,8 +5,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 public class TwoSum {
-    record Entry(int index, int value) {}
-
     public int[] twoSum(int[] nums, int target) {
         HashMap<Integer, Integer> hashMap = new HashMap<>();
 
@@ -28,27 +26,17 @@ public class TwoSum {
     }
 
     public int[] twoSum2(int[] nums, int target) {
-        Entry[] entries = new Entry[nums.length];
-
-        for (int i = 0; i < nums.length; i++) {
-            int number = nums[i];
-            Entry entry = new Entry(i, number);
-            entries[i] = entry;
-        }
-
-        Arrays.sort(entries, Comparator.comparing(entry -> entry.value));
-
         int leftIndex = 0;
         int rightIndex = nums.length - 1;
 
         while (leftIndex < rightIndex) {
-            Entry leftValue = entries[leftIndex];
-            Entry rightValue = entries[rightIndex];
+            int leftValue = nums[leftIndex];
+            int rightValue = nums[rightIndex];
 
-            int total = leftValue.value + rightValue.value;
+            int total = leftValue + rightValue;
 
             if (total == target) {
-                return new int[] {leftValue.index, rightValue.index};
+                return new int[] {leftIndex + 1, rightIndex + 1};
             } else if (total < target) {
                 leftIndex++;
             } else {

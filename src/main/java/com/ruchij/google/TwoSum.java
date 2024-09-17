@@ -1,7 +1,5 @@
 package com.ruchij.google;
 
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 
 public class TwoSum {

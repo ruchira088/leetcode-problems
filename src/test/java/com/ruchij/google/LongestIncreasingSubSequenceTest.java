@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LongestIncreasingSubSequenceTest {
-    private static final LongestIncreasingSubSequence solution = new LongestIncreasingSubSequence();
+    private static final LongestIncreasingSequence solution = new LongestIncreasingSequence();
 
     @Test
     void verifyResults() {

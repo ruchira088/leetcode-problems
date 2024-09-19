@@ -13,7 +13,7 @@ class MaximumNumberOfPointsWithCostTest {
                 9,
                 solution.maxPoints(
                         new int[][]{
-                                new int[]{1, 2, 3},
+                                new int[]{1, 1, 3},
                                 new int[]{1, 5, 1},
                                 new int[]{3, 1, 1}
 

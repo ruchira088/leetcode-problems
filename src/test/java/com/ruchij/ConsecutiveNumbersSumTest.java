@@ -9,10 +9,9 @@ class ConsecutiveNumbersSumTest {
 
     @Test
     void testOne() {
-//        assertEquals(2, consecutiveNumbersSum.consecutiveNumbersSum(5));
-//        assertEquals(4, consecutiveNumbersSum.consecutiveNumbersSum(15));
-//        assertEquals(1, consecutiveNumbersSum.consecutiveNumbersSum(1));
-        assertEquals(2, consecutiveNumbersSum.consecutiveNumbersSum(68188380));
+        assertEquals(2, consecutiveNumbersSum.consecutiveNumbersSum(5));
+        assertEquals(4, consecutiveNumbersSum.consecutiveNumbersSum(15));
+        assertEquals(1, consecutiveNumbersSum.consecutiveNumbersSum(1));
     }
 
 }

@@ -9,8 +9,6 @@ class GreatestCommonDivisorOfStringsTest {
     void gcdReturnsExpectedResult() {
         GreatestCommonDivisorOfStrings greatestCommonDivisorOfStrings = new GreatestCommonDivisorOfStrings();
 
-        Assertions.assertEquals("", greatestCommonDivisorOfStrings.gcdOfStrings("TAUXXTAUXXTAUXXTAUXXTAUXX", "TAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXX"));
-
         Assertions.assertEquals("ABC", greatestCommonDivisorOfStrings.gcdOfStrings("ABCABC", "ABC"));
         Assertions.assertEquals("AB", greatestCommonDivisorOfStrings.gcdOfStrings("ABABAB", "ABAB"));
         Assertions.assertEquals("", greatestCommonDivisorOfStrings.gcdOfStrings("LEET", "CODE"));

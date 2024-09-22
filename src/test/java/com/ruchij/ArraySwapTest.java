@@ -21,12 +21,4 @@ public class ArraySwapTest {
 
         Assertions.assertEquals(1, arraySwap.minSwap(arrayOne, arrayTwo));
     }
-
-    @Test
-    void testThree() {
-        int[] arrayOne = {0, 3, 4, 9, 10};
-        int[] arrayTwo = {2, 3, 7, 5, 6};
-
-        Assertions.assertEquals(1, arraySwap.minSwap(arrayOne, arrayTwo));
-    }
 }

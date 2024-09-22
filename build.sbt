@@ -10,12 +10,14 @@ lazy val root =
       version := "0.0.1",
       maintainer := "me@ruchij.com",
       libraryDependencies ++= rootDependencies ++ rootTestDependencies.map(_ % Test),
+      libraryDependencies += "com.github.sbt.junit" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test,
       buildInfoKeys := Seq[BuildInfoKey](name, organization, version, scalaVersion, sbtVersion),
       buildInfoPackage := "com.eed3si9n.ruchij",
       topLevelDirectory := None,
       scalacOptions ++= Seq("-Xlint", "-feature"),
       addCompilerPlugin(kindProjector)
     )
+
 
 lazy val rootDependencies =
   Seq()
